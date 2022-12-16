@@ -2,6 +2,7 @@
 
 from flask import Flask, jsonify
 import psycopg2
+from requests import request
 
 app = Flask(__name__)
 
@@ -43,27 +44,6 @@ def get_users():
 
     # Return the response as JSON
     return jsonify(response)
-
-@app.route('/users', methods=['POST'])
-def add_user():
-    # Get the user data from the request
-    user_data = request.get_json()
-
-    # Extract the user name from the data
-    user_name = user_data.get("name")
-
-    # Insert the user into the database
-    try:
-        cur.execute("INSERT INTO users (name) VALUES (%s)", (user_name,))
-    except psycommands.Error as e:
-        print("Error executing INSERT statement: ", e)
-        return jsonify({"error": str(e)})
-
-    # Commit the changes to the database
-    conn.commit()
-
-    # Return a success response
-    return jsonify({"success": True})
 
 
 # Close the cursor and connection when the app shuts down
