@@ -22,7 +22,7 @@ def hello():
     return 'Hello, World!'
 
 @app.route('/users')
-def get_users():
+def get_data():
     # Execute a query to get all users
     try:
         cur.execute("SELECT * FROM users")
