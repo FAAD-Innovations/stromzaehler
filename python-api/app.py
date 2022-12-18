@@ -2,7 +2,6 @@
 
 from flask import Flask, jsonify
 import psycopg2
-from requests import request
 
 app = Flask(__name__)
 
@@ -27,9 +26,9 @@ def get_users():
     # Execute a query to get all users
     try:
         cur.execute("SELECT * FROM users")
-    except psycopg2.Error as e:
-        print("Error executing SELECT statement: ", e)
-        return jsonify({"error": str(e)})
+    except psycopg2.Error as err:
+        print("Error executing SELECT statement: ", err)
+        return jsonify({"error": str(err)})
 
     # Fetch the results
     rows = cur.fetchall()
